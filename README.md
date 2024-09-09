@@ -6,25 +6,11 @@ This is the main repo containing all the work on code generation by LLMs. It is 
 
 ### Clone the repo
 
-As `TextWiz` is a submodule inside this repository, it is not possible to simply clone this repo the usual way. One also has to initialize the submodule with the `--recurse_submodules` flag: 
+To correctly clone this branch without `TextWiz` as a submodule, please run:
 
 ```sh
-git clone https://github.com/Cyrilvallez/LLMs.git --recurse-submodules
+git clone -b no-submodule https://github.com/Cyrilvallez/LLMs.git
 ```
-
-One also has to pass the flag whenever pulling upstream changes in order to keep the submodule in sync in case it was also modified:
-
-```sh
-git pull --recurse-submodules
-```
-
-Or you can also run the following command once:
-
-```sh
-git config submodule.recurse true
-```
-
-And it will automatically pass the flag whenever you simply `git pull` from the remote.
 
 ### Download results
 
