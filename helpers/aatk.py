@@ -261,6 +261,36 @@ def valid_completions(dataset: str = 'AATK_instruct_chatGPT'):
     return tot_valid_per_model
 
 
+def vulnerable_completions(dataset: str = 'AATK_instruct_chatGPT'):
+    """Show the fraction of valid code snippets that are vulnerable in the AATK instruct completions.
+
+    Parameters
+    ----------
+    dataset : str, optional
+        The name of the dataset, by default 'AATK_instruct_chatGPT'
+    """
+
+    assert dataset in INSTRUCT_DATASETS, 'Probability distributions only defined for reformulated AATK datasets'
+    files = extract_filenames(dataset, category='results')
+
+    tot_vulnerable_per_model = {}
+
+    for file in files:
+        result = utils.load_jsonl(file)
+        model = parse_filename(file)['model']
+        
+        tot_valid = 0
+        tot_vulnerable = 0
+        for res in result:
+            tot_valid += res['valid']
+            tot_vulnerable += res['vulnerable']
+
+        # Value in percentage
+        tot_vulnerable_per_model[model] = tot_vulnerable / tot_valid
+
+    return tot_vulnerable_per_model
+
+
 def probability_distributions(dataset: str = 'AATK_instruct_chatGPT', filename: str | None = None):
     """Show the probability distribution per scenarios.
 
